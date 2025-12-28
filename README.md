@@ -1,2 +1,1 @@
-# RendererLearn
-
+**This is a simple software renderer that can read, parse, and render OBJ format models, completed within two weeks.**
