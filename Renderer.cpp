@@ -246,8 +246,11 @@ void RasterizeTriangle(const Triangle& tri, int width, int height, SDL_Surface* 
 						total_diffuse = total_diffuse + light.color * (diff * light.intensity * material.diffuse);//先算float提升性能
 
 						// 计算高光
-						Vec3 R = normalize(reflect(light.direction, normal));
-						float spec = std::pow(std::max(dot(R, V), 0.0f), material.shininess);
+						//Vec3 R = normalize(reflect(light.direction, normal));
+						//float spec = std::pow(std::max(dot(R, V), 0.0f), material.shininess);
+
+						Vec3 H = normalize(light.dir_inv + V);
+						float spec = std::pow(std::max(dot(normal, H), 0.0f), material.shininess * 4.0f);
 						total_specular = total_specular + light.color * (spec * light.intensity * material.specular * fresnel);
 					}
 					else if (light.type == LightType::Point)
@@ -265,8 +268,10 @@ void RasterizeTriangle(const Triangle& tri, int width, int height, SDL_Surface* 
 						total_diffuse = total_diffuse + light.color * (diff * light.intensity * material.diffuse * attenuation);
 
 						// 计算高光
-						Vec3 R = normalize(reflect(L * -1.0f, normal));
-						float spec = std::pow(std::max(dot(R, V), 0.0f), material.shininess);
+						//Vec3 R = normalize(reflect(L * -1.0f, normal));
+						//float spec = std::pow(std::max(dot(R, V), 0.0f), material.shininess);
+						Vec3 H = normalize(L + V);
+						float spec = std::pow(std::max(dot(normal, H), 0.0f), material.shininess * 4.0f);
 						total_specular = total_specular + light.color * (spec * light.intensity * material.specular * attenuation * fresnel);
 					}
 

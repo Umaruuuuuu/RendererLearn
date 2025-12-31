@@ -64,7 +64,7 @@ Vec3 operator*(const Vec3& v1, const Vec3& v2);
 float dot(const Vec3& a, const Vec3& b);
 Vec3 cross(const Vec3& a, const Vec3& b);
 float length(const Vec3& v);
-Vec3 normalize(const Vec3& v);
+inline Vec3 normalize(const Vec3& v);
 Uint32 Vec3ToUint32(const Vec3& color);
 
 //实现一个 4x4 矩阵
